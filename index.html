@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+        /* Estilo del cuerpo, ajusta el espacio para la barra de navegación y el footer */
+        body {
+            margin: 0;
+            padding-top: 60px; /* Espacio reservado para la barra de navegación en la parte superior */
+            padding-bottom: 80px; /* Espacio reservado para el footer en la parte inferior */
+            min-height: 100vh; /* Asegura que el cuerpo ocupe al menos el 100% del alto de la ventana */
+            display: flex; /* Flexbox para centrar el contenido */
+            justify-content: center; /* Centra horizontalmente */
+            align-items: center; /* Centra verticalmente */
+            flex-direction: column; /* Apila los elementos en una columna */
+            background-color: antiquewhite; /* Color de fondo del cuerpo */
+        }
+
+        /* Estilo de la barra de navegación */
+        .navbar {
+            position: fixed; /* Fija la barra de navegación en la parte superior de la página */
+            top: 0; /* Coloca la barra en la parte superior */
+            width: 100%; /* Barra abarca todo el ancho de la pantalla */
+            display: flex; /* Flexbox para los elementos dentro de la barra */
+            justify-content: space-between; /* Distribuye los elementos a lo largo de la barra */
+            background-color: rgb(245, 118, 44); /* Color de fondo de la barra */
+            padding: 15px; /* Relleno alrededor de los elementos en la barra */
+            border-radius: 0 0 10px 10px; /* Bordes redondeados solo en la parte inferior */
+            z-index: 1000; /* Asegura que la barra esté por encima de otros elementos */
+        }
+
+        /* Estilo de los elementos dentro de la barra de navegación */
+        .navbar-item {
+            color: white; /* Texto blanco */
+            text-decoration: dashed; /* Subrayado con estilo de línea discontinua */
+            padding: 10px 20px; /* Relleno interno para agrandar los enlaces */
+            font-size: 18px; /* Tamaño de letra */
+            background-color: rgb(231, 145, 206); /* Fondo de cada enlace */
+            border: 5px solid rgb(46, 11, 143); /* Borde alrededor de cada enlace */
+            border-radius: 5px; /* Bordes ligeramente redondeados */
+            text-align: center; /* Centra el texto dentro de cada enlace */
+        }
+
+        /* Estilo del footer (pie de página) */
+        footer {
+            position: fixed; /* Fija el footer en la parte inferior de la página */
+            bottom: 0; /* Lo coloca en la parte más baja */
+            width: 100%; /* Ancho completo de la pantalla */
+            display: flex; /* Flexbox para organizar los botones */
+            justify-content: center; /* Centra los botones en el footer */
+            align-items: center; /* Alinea verticalmente los botones */
+            padding: 15px; /* Espaciado interno del footer */
+            background-color: rgb(245, 118, 44); /* Color de fondo */
+            z-index: 1000; /* Asegura que esté por encima de otros elementos */
+        }
+
+        /* Estilo de los botones en el footer */
+        .grid-button {
+            padding: 10px 20px; /* Relleno interno para agrandar los botones */
+            background-color: rgb(245, 118, 44); /* Color de fondo de los botones */
+            color: white; /* Texto blanco en los botones */
+            border: none; /* Sin borde */
+            border-radius: 5px; /* Bordes redondeados */
+            cursor: pointer; /* Muestra el cursor en forma de mano al pasar sobre los botones */
+            margin: 5px; /* Espacio entre los botones */
+            font-size: 16px; /* Tamaño de letra */
+            flex: 1 1 auto; /* Hace que los botones se ajusten proporcionalmente en pantallas pequeñas */
+            max-width: 150px; /* Ancho máximo de cada botón */
+        }
+
+        /* Estilo del hover (al pasar el mouse por encima) de los botones */
+        .grid-button:hover {
+            background-color: rgb(231, 145, 206); /* Cambia el color de fondo cuando se pasa el mouse por encima */
+        }
+
+        /* Responsividad del footer: cambia la dirección de los botones en pantallas pequeñas */
+        @media (max-width: 600px) {
+            footer {
+                flex-direction: column; /* Apila los botones en columnas en lugar de filas */
+            }
+        }
+
+        /* Estilo de la galería de imágenes */
+        .galeria {
+          display: grid; /* Uso de grid layout para organizar las imágenes */
+          grid-template-columns: repeat(2, 1fr); /* Por defecto, 2 columnas fijas con igual tamaño */
+          grid-template-rows: 1fr 1fr; /* Dos filas de igual tamaño */
+          align-items: center; /* Alinea verticalmente las imágenes dentro de su contenedor */
+          gap: 10px; /* Espaciado entre las imágenes */
+          width: 80%; /* Ancho de la galería */
+          place-content: center; /* Centra el contenido en el grid */
+          transition: all 0.3s ease; /* Transiciones suaves al cambiar el layout */
+        }
+
+        /* Estilo básico de las imágenes en la galería */
+        .galeria img {
+            width: 100%; /* Las imágenes ocupan todo el ancho del contenedor */
+            height: auto; /* Mantienen la proporción natural */
+            object-fit: contain; /* Las imágenes se ajustan dentro de su espacio sin recortarse */
+            background-color: lightgray; /* Fondo gris para las imágenes */
+            transition: border-radius 0.3s ease; /* Transición suave para los cambios de borde redondeado */
+        }
+
+        /* Responsividad de la galería en pantallas pequeñas */
+        @media (max-width: 600px) {
+            .galeria {
+                grid-template-columns: 1fr; /* Cambia a una sola columna */
+                grid-template-rows: auto; /* Ajusta el número de filas automáticamente */
+            }
+
+            .galeria img {
+                height: auto; /* Asegura que las imágenes no se distorsionen */
+            }
+        }
+
+        /* Clases adicionales para los grids */
+        .grid-3 {
+          grid-template-columns: repeat(3, 1fr); /* Configura 3 columnas de igual tamaño */
+        }
+        
+        /* Clases para el estilo de las imágenes */
+        .circular {
+            border-radius: 50%; /* Hace las imágenes circulares */
+            object-fit: cover; /* Las imágenes llenan todo el círculo */
+            aspect-ratio: 1 / 1; /* Mantiene la proporción 1:1 */
+        }
+
+        .square {
+            aspect-ratio: 1 / 1; /* Mantiene las imágenes cuadradas (aspecto 1:1) */
+            border-radius: 0; /* Sin bordes redondeados */
+            object-fit: cover; /* Asegura que las imágenes llenen todo el contenedor */
+        }
+
+        .portrait {
+            aspect-ratio: 3 / 4; /* Mantiene la proporción de retrato (3:4) */
+            object-fit: cover; /* Asegura que las imágenes llenen todo el contenedor */
+        }
+
+        /* Responsividad específica para el grid de 3 columnas */
+        @media (max-width: 600px) {
+            .grid-3 {
+                grid-template-columns: 1fr; /* Cambia a una sola columna en pantallas pequeñas */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra de navegación con enlaces -->
+    <nav class="navbar">
+        <a href="#home" class="navbar-item">Home</a>
+        <a href="#about" class="navbar-item">About</a>
+        <a href="#services" class="navbar-item">Services</a>
+        <a href="#contact" class="navbar-item">Contact</a>
+    </nav>
+
+    <!-- Galería de imágenes -->
+    <div class="galeria">
+        <img src="Pinkfloyd.jpg" alt="Descripción de la imagen">
+        <img src="Kingglizzard.jpg" alt="Descripción de la imagen">
+        <img src="Vulfpeck.jpg" alt="Descripción de la imagen">
+        <img src="Nugenea.jpg" alt="Descripción de la imagen">
+    </div>
+
+    <!-- Footer con botones para cambiar el estilo de la galería -->
+    <footer>
+        <button class="grid-button" onclick="setGrid(2)">Grid de 2 columnas</button>
+        <button class="grid-button" onclick="setGrid(3)">Grid de 3 columnas variables</button>
+        <button class="grid-button" onclick="setImageStyle('circular')">Circulares</button>
+        <button class="grid-button" onclick="setImageStyle('square')">Cuadrado</button>
+        <button class="grid-button" onclick="setImageStyle('portrait')">Retrato</button>
+    </footer>
+
+    <script>
+        // Función para cambiar el número de columnas del grid
